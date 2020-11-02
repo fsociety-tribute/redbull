@@ -542,7 +542,7 @@ static void spi_gsi_tx_callback(void *cb)
 			"%s\n", __func__);
 			complete(&mas->tx_cb);
 		} else {
-			GENI_SE_ERR(mas->ipc, true, mas->dev,
+			GENI_SE_DBG(mas->ipc, true, mas->dev,
 			"%s: Length mismatch. Expected %d Callback %d\n",
 			__func__, xfer->len, cb_param->length);
 		}

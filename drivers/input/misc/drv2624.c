@@ -47,8 +47,10 @@
 
 #include "drv2624.h"
 
+#ifdef CONFIG_HAPTIC_FEEDBACK_LEVEL
 static bool disable_vib = false;
 static int level = 100;
+#endif
 
 static struct drv2624_data *drv2624_plat_data;
 
@@ -303,8 +305,11 @@ static void vibrator_enable(struct led_classdev *led_cdev,
 {
 	struct drv2624_data *drv2624 =
 			container_of(led_cdev, struct drv2624_data, led_dev);
-
+#ifdef CONFIG_HAPTIC_FEEDBACK_LEVEL
 	if (value == LED_OFF || disable_vib)
+#else
+	if (value == LED_OFF)
+#endif
 		queue_work(drv2624->drv2624_wq, &drv2624->stop_work);
 	else
 		queue_work(drv2624->drv2624_wq, &drv2624->work);
@@ -1055,6 +1060,7 @@ static ssize_t rtp_input_store(struct device *dev,
 			       struct device_attribute *attr, const char *buf,
 			       size_t count)
 {
+#ifndef CONFIG_HAPTIC_FEEDBACK_LEVEL
 	struct drv2624_data *drv2624 = dev_get_drvdata(dev);
 	int ret;
 	char rtp_input;
@@ -1068,7 +1074,7 @@ static ssize_t rtp_input_store(struct device *dev,
 	mutex_lock(&drv2624->lock);
 	drv2624_reg_write(drv2624, DRV2624_REG_RTP_INPUT, rtp_input);
 	mutex_unlock(&drv2624->lock);
-
+#endif
 	return count;
 }
 
@@ -1217,6 +1223,7 @@ static ssize_t scale_store(struct device *dev,
 			   struct device_attribute *attr, const char *buf,
 			   size_t count)
 {
+#ifndef CONFIG_HAPTIC_FEEDBACK_LEVEL
 	struct drv2624_data *drv2624 = dev_get_drvdata(dev);
 	int ret;
 	int interval;
@@ -1232,10 +1239,11 @@ static ssize_t scale_store(struct device *dev,
 	mutex_lock(&drv2624->lock);
 	drv2624_set_bits(drv2624, DRV2624_REG_CONTROL2, SCALE_MASK, interval);
 	mutex_unlock(&drv2624->lock);
-
+#endif
 	return count;
 }
 
+#ifdef CONFIG_HAPTIC_FEEDBACK_LEVEL
 static ssize_t level_show(struct device *dev,
 			  struct device_attribute *attr, char *buf)
 {
@@ -1249,15 +1257,24 @@ static ssize_t level_store(struct device *dev,
 	struct drv2624_data *drv2624 = dev_get_drvdata(dev);
 	int ret;
 	int interval;
+	int rtp_input;
 
-	ret = kstrtoint(buf, 10, &interval);
+	ret = kstrtoint(buf, 10, &level);
 	if (ret) {
-		pr_err("Invalid input for loop: ret = %d\n", ret);
+		pr_err("Invalid input for level: ret = %d\n", ret);
 		return ret;
 	}
 
-	level = max(min(interval, 100), 0);
-	disable_vib = false;
+	level = max(min(level, 100), 0);
+	
+	if (level == 0) {
+		disable_vib = true;
+		return count;
+	} else {
+		disable_vib = false;	
+	}
+
+	rtp_input = (int) level * 127 / 100;
 
 	if (level >= 75) {
 		interval = 0;
@@ -1267,17 +1284,16 @@ static ssize_t level_store(struct device *dev,
 		interval = 2;
 	} else if (level > 0) {
 		interval = 3;
-	} else {
-		disable_vib = true;
-		return count;
 	}
 
 	mutex_lock(&drv2624->lock);
 	drv2624_set_bits(drv2624, DRV2624_REG_CONTROL2, SCALE_MASK, interval);
+	drv2624_reg_write(drv2624, DRV2624_REG_RTP_INPUT, rtp_input);
 	mutex_unlock(&drv2624->lock);
 
 	return count;
 }
+#endif
 
 static ssize_t ctrl_loop_show(struct device *dev,
 			      struct device_attribute *attr, char *buf)
@@ -1636,7 +1652,9 @@ static DEVICE_ATTR(mode, 0660, mode_show, mode_store);
 static DEVICE_ATTR(loop, 0660, loop_show, loop_store);
 static DEVICE_ATTR(interval, 0660, interval_show, interval_store);
 static DEVICE_ATTR(scale, 0660, scale_show, scale_store);
+#ifdef CONFIG_HAPTIC_FEEDBACK_LEVEL
 static DEVICE_ATTR(level, 0660, level_show, level_store);
+#endif
 static DEVICE_ATTR(ctrl_loop, 0660, ctrl_loop_show, ctrl_loop_store);
 static DEVICE_ATTR(set_sequencer, 0660, NULL, set_sequencer_store);
 static DEVICE_ATTR(od_clamp, 0660, od_clamp_show, od_clamp_store);
@@ -1659,7 +1677,9 @@ static struct attribute *drv2624_fs_attrs[] = {
 	&dev_attr_loop.attr,
 	&dev_attr_interval.attr,
 	&dev_attr_scale.attr,
+#ifdef CONFIG_HAPTIC_FEEDBACK_LEVEL
 	&dev_attr_level.attr,
+#endif
 	&dev_attr_ctrl_loop.attr,
 	&dev_attr_set_sequencer.attr,
 	&dev_attr_od_clamp.attr,

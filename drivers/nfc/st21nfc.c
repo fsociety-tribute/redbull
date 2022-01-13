@@ -523,7 +523,7 @@ static ssize_t st21nfc_dev_write(struct file *filp, const char __user *buf,
 	/* Write data */
 	ret = i2c_master_send(st21nfc_dev->client, tmp, count);
 	if (ret != count) {
-		pr_err("%s : i2c_master_send returned %d\n", __func__, ret);
+		pr_debug("%s : i2c_master_send returned %d\n", __func__, ret);
 		ret = -EIO;
 	}
 	kfree(tmp);

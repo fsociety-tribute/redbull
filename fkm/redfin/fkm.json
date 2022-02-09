@@ -1,0 +1,13 @@
+{
+  "kernel": {
+    "name": "fsociety tribute kernel",
+    "version": "",
+    "link": "",
+    "changelog_url": "https://github.com/fsociety-tribute/redbull/raw/a12-rebase/fkm/redfin/changelog",
+    "date": "2022-01-01",
+    "sha1": ""
+  },
+  "support": {
+    "link": "https://t.me/fsociety_tribute_redbull"
+  }
+}

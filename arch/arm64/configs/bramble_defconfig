@@ -3,13 +3,13 @@
 # Linux/arm64 4.19.220 Kernel Configuration
 #
 
-CONFIG_CC_VERSION_TEXT="Android (8075178, based on r437112b) clang version 14.0.1 (https://android.googlesource.com/toolchain/llvm-project 8671348b81b95fc603505dfc881b45103bee1731)"
+CONFIG_CC_VERSION_TEXT="Android (8225204, based on r445002) clang version 14.0.2 (https://android.googlesource.com/toolchain/llvm-project ae8d7d1dee3175cbfe3887834135abee1dcfcb68)"
 CONFIG_GCC_VERSION=0
 CONFIG_LD_VERSION=0
 CONFIG_CC_IS_CLANG=y
 CONFIG_LD_IS_LLD=y
-CONFIG_CLANG_VERSION=140001
-CONFIG_LLD_VERSION=140001
+CONFIG_CLANG_VERSION=140002
+CONFIG_LLD_VERSION=140002
 CONFIG_CC_HAS_ASM_GOTO=y
 CONFIG_CC_HAS_ASM_GOTO_OUTPUT=y
 CONFIG_TOOLS_SUPPORT_RELR=y

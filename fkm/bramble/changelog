@@ -1,4 +1,11 @@
 fsociety tribute
-stable#1.00 - 22/02/2022
+stable#1.43 - 14/03/2022
 
-- Initial release (more info on the main XDA thread)
+- Full code rebase for better stability and address the previous reported issues on #1.00
+- Android 12L - March 2022 security patch ready
+- Merge the fix for the dirty pipe exploit (more info at: https://dirtypipe.cm4all.com/)
+- Reduce the GPU idle timeout from 64ms to 58ms (stock is 80ms)
+- Reset zRAM's disksize to stock's default
+- Update the compiler from Clang 14.0.1 to Google's latest Clang 14.0.2
+- Implement LRNG and enable it as default for better performance (more info at: https://www.phoronix.com/scan.php?page=news_item&px=LRNG-Random-2021-v41)
+- Misc. under-the-hood changes

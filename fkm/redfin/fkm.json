@@ -1,11 +1,11 @@
 {
   "kernel": {
     "name": "fsociety tribute kernel",
-    "version": "stable #1.00",
-    "link": "https://sourceforge.net/projects/fsociety-tribute/files/pixel5/fsociety-tribute-stable%231.00.zip/download",
+    "version": "stable #1.43",
+    "link": "https://sourceforge.net/projects/fsociety-tribute/files/pixel5/fsociety-tribute-stable%231.43.zip/download",
     "changelog_url": "https://github.com/fsociety-tribute/redbull/raw/a12-rebase/fkm/redfin/changelog",
-    "date": "2022-02-22",
-    "sha1": "a8ffdc16104fb0ea5032b51ea99e1b60b06ba4d8"
+    "date": "2022-03-14",
+    "sha1": "7b86fed4315cd2c0cbe8f2c31fd4047343044c16"
   },
   "support": {
     "link": "https://t.me/fsociety_tribute_redbull"

@@ -1,11 +1,11 @@
 {
   "kernel": {
     "name": "fsociety tribute kernel",
-    "version": "stable #1.00",
-    "link": "https://sourceforge.net/projects/fsociety-tribute/files/pixel4a-5g/fsociety-tribute-stable%231.00.zip/download",
+    "version": "stable #1.57",
+    "link": "https://sourceforge.net/projects/fsociety-tribute/files/pixel4a-5g/fsociety-tribute-stable%231.57.zip/download",
     "changelog_url": "https://github.com/fsociety-tribute/redbull/raw/a12-rebase/fkm/bramble/changelog",
-    "date": "2022-02-22",
-    "sha1": "c391a61f5764c991b65bc7e82d7d4e9820399870"
+    "date": "2022-06-12",
+    "sha1": "8d4b830ef1bacbc529079b7215c3f1cd294b6575"
   },
   "support": {
     "link": "https://t.me/fsociety_tribute_redbull"

@@ -1,4 +1,12 @@
 fsociety tribute
-stable#1.00 - 22/02/2022
+stable#1.57 - 11/06/2022
 
-- Initial release (more info on the main XDA thread)
+- Full code rebase to make the updating process easier and address the reported issues from the previous releases (such as the momentary display rendering lags)
+- Android 12L - June 2022 security patch ready
+- Android 13 beta 2 and beta 3 code and security fixes merged-in
+- Merged-in Qualcomm's 4.19 repo latest code and scheduler improvements
+- Updated Wireguard to its latest version's changes
+- Removed the support of the following features for stability purposes:
+Haptic Feedback level Control with Fingerprint Haptic Feedback Control
+(Vibration control is still supported however)
+Boeffla Wakelock Blocker

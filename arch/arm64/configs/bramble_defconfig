@@ -5967,4 +5967,4 @@ CONFIG_ARM64_STRICT_BREAK_BEFORE_MAKE=y
 #
 # fsociety-tribute additions
 #
-CONFIG_LOCALVERSION="-fsociety tribute stable#1.00"
+CONFIG_LOCALVERSION="-fsociety tribute stable#1.57"

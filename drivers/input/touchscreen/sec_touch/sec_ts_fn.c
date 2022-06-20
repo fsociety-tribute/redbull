@@ -1267,7 +1267,7 @@ int sec_ts_fix_tmode(struct sec_ts_data *ts, u8 mode, u8 state)
 	u8 onoff[1] = {STATE_MANAGE_OFF};
 	u8 tBuff[2] = { mode, state };
 
-	input_info(true, &ts->client->dev, "%s: mode %d state %d\n",
+	input_dbg(true, &ts->client->dev, "%s: mode %d state %d\n",
 		__func__, mode, state);
 
 	ret = ts->sec_ts_write(ts, SEC_TS_CMD_STATEMANAGE_ON, onoff, 1);
@@ -1453,7 +1453,7 @@ static int sec_ts_get_gain_table(struct sec_ts_data *ts)
 	if (pStr == NULL)
 		return -ENOMEM;
 
-	input_info(true, &ts->client->dev, "%s: Gain Table\n", __func__);
+	input_dbg(true, &ts->client->dev, "%s: Gain Table\n", __func__);
 
 	for (i = 0; i < ts->rx_count; i++) {
 		pStr[0] = 0;
@@ -1463,7 +1463,7 @@ static int sec_ts_get_gain_table(struct sec_ts_data *ts)
 					" %3d",
 					ts->gainTable[(j * ts->rx_count) + i]);
 		}
-		input_info(true, &ts->client->dev, "%s\n", pStr);
+		input_dbg(true, &ts->client->dev, "%s\n", pStr);
 	}
 
 	kfree(pStr);
@@ -1635,7 +1635,7 @@ static void sec_ts_print_frame(struct sec_ts_data *ts, short *min, short *max)
 		buff_len += scnprintf(pStr + buff_len, buff_size - buff_len,
 				" %02d ", i);
 
-	input_info(true, &ts->client->dev, "%s\n", pStr);
+	input_dbg(true, &ts->client->dev, "%s\n", pStr);
 	buff_len = 0;
 	memset(pStr, 0x0, buff_size);
 	buff_len += scnprintf(pStr + buff_len, buff_size - buff_len, " +");
@@ -1644,7 +1644,7 @@ static void sec_ts_print_frame(struct sec_ts_data *ts, short *min, short *max)
 		buff_len += scnprintf(pStr + buff_len, buff_size - buff_len,
 				"----");
 
-	input_info(true, &ts->client->dev, "%s\n", pStr);
+	input_dbg(true, &ts->client->dev, "%s\n", pStr);
 
 	for (i = 0; i < ts->rx_count; i++) {
 		buff_len = 0;
@@ -1667,7 +1667,7 @@ static void sec_ts_print_frame(struct sec_ts_data *ts, short *min, short *max)
 								i];
 			}
 		}
-		input_info(true, &ts->client->dev, "%s\n", pStr);
+		input_dbg(true, &ts->client->dev, "%s\n", pStr);
 	}
 	kfree(pStr);
 }
@@ -1916,7 +1916,7 @@ static void sec_ts_print_channel(struct sec_ts_data *ts)
 		str_len += scnprintf(pStr + str_len, str_size - str_len,
 				     "    %02d", k);
 	}
-	input_info(true, &ts->client->dev, "%s\n", pStr);
+	input_dbg(true, &ts->client->dev, "%s\n", pStr);
 
 	str_len = scnprintf(pStr, str_size, " +");
 
@@ -1924,7 +1924,7 @@ static void sec_ts_print_channel(struct sec_ts_data *ts)
 		str_len += scnprintf(pStr + str_len, str_size - str_len,
 				     "------");
 	}
-	input_info(true, &ts->client->dev, "%s\n", pStr);
+	input_dbg(true, &ts->client->dev, "%s\n", pStr);
 
 	str_len = scnprintf(pStr, str_size, " | ");
 
@@ -1949,11 +1949,11 @@ static void sec_ts_print_channel(struct sec_ts_data *ts)
 						     str_size - str_len,
 						     "------");
 			}
-			input_info(true, &ts->client->dev, "%s\n", pStr);
+			input_dbg(true, &ts->client->dev, "%s\n", pStr);
 
 			str_len = scnprintf(pStr, str_size, " | ");
 		} else if (j && !(j % ts->tx_count)) {
-			input_info(true, &ts->client->dev, "%s\n", pStr);
+			input_dbg(true, &ts->client->dev, "%s\n", pStr);
 			str_len = scnprintf(pStr, str_size, " | ");
 		}
 
@@ -1962,7 +1962,7 @@ static void sec_ts_print_channel(struct sec_ts_data *ts)
 
 		j++;
 	}
-	input_info(true, &ts->client->dev, "%s\n", pStr);
+	input_dbg(true, &ts->client->dev, "%s\n", pStr);
 	vfree(pStr);
 }
 
